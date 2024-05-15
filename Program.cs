@@ -71,12 +71,13 @@ async Task InitializeCosmosDBContainers(CosmosClient cosmosClient, IConfiguratio
     {
         // // Handle the error appropriately
 
+        throw new Exception("Failed to create Cosmos DB container: Container response is null.");
 
     }
 
 
-        // Define container properties for Question container
-        var questionContainerProperties = new ContainerProperties
+    // Define container properties for Question container
+    var questionContainerProperties = new ContainerProperties
     {
         Id = "Question",
         PartitionKeyPath = "/questionID" // Assuming 'id' is the partition key
@@ -92,9 +93,11 @@ async Task InitializeCosmosDBContainers(CosmosClient cosmosClient, IConfiguratio
 
     if (questionContainerResponse == null && questionContainerResponse.Container == null)
     {
-        // // Handle the error appropriately
-
-
+        // // Handle the error appropriately 
+            // Log the error or throw a custom exception
+           // _logger.LogError("Failed to create Cosmos DB container: Container response is null.");
+            throw new Exception("Failed to create Cosmos DB container: Container response is null.");
+       
     }
 
 
